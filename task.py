@@ -1,119 +1,5 @@
 #empty = 0 pits = 1 wind = 2 wumpus = 3 smell = 4 gold = 5 doubt = 6 safe = 7
 import random
-# def game(matrix, size):
-# 	current_point_flag = True
-# 	while(current_point_flag):
-# 		x = random.randint(0, size-1)
-# 		y = random.randint(0, size-1)
-# 		if(x == 0 or y == 0 or x == (size -1) or y == (size - 1) and ("1" in matrix[x][y] and "3" in matrix[x][y])):
-# 			current_point_flag = False
-
-# 	current_point = [x,y]
-# 	game_over_flag = False
-# 	game_result_flag = False
-# 	if("5" in matrix[x][y]):
-# 		game_over_flag = True
-# 		game_result_flag = True
-
-
-# 	while(not game_over_flag):
-# 		current_point = [x,y]
-# 		print(current_point)
-# 		move_flag = False
-# 		if("5" in matrix[x][y]):
-# 			game_over_flag = True
-# 			game_result_flag = True
-# 			move_flag = True
-# 			break 
-# 		if("1" in matrix[x][y] or "3" in matrix[x][y]):
-# 			game_over_flag = True
-# 			game_result_flag = False
-# 			move_flag = True
-# 			break
-
-		
-# 		flagone, flagTwo, flagThree, flagFour = True, True, True, True
-# 		if(0 <= x-1 < (size) and (not move_flag)):
-# 			if("2" in matrix[x-1][y] or "4" in matrix[x-1][y]):
-# 				flagone = False
-# 		if(0 <= x+1 < (size) and (not move_flag)):
-# 			if("2" in matrix[x+1][y] or "4" in matrix[x+1][y]):
-# 				flagTwo = False
-# 		if(0 <= y-1 < (size) and (not move_flag)):
-# 			if("2" in matrix[x][y-1] or "4" in matrix[x][y-1]):
-# 				flagThree = False
-# 		if(0 <= y+1 < (size) and (not move_flag)):
-# 			if("2" in matrix[x][y+1] or "4" in matrix[x][y+1]):
-# 				flagFour = False
-# 		if(flagone or flagTwo or flagThree or flagFour):
-# 			if(0 <= x-1 < (size)):
-# 				if(flagone):
-# 					x = x-1
-# 					#current_point = [x-1,y]
-# 					move_flag = True
-# 			elif(0 <= x+1 < (size)):
-# 				if(flagTwo):
-# 					x = x+1
-# 					#current_point = [x+1,y]
-# 					move_flag = True
-# 			elif(0 <= y-1 < (size)):
-# 				if(flagThree):
-# 					y = y-1
-# 					#current_point = [x, y-1]
-# 					move_flag = True
-# 			elif(0 <= y+1 < (size)):
-# 				if(flagFour):
-# 					y = y + 1
-# 					#current_point = [x, y+1]
-# 					move_flag = True
-# 		else:
-# 			while(not move_flag):
-# 				print("All Sides have either smell or wind")
-# 				print("Where to move")
-# 				print("1. Move Left")
-# 				print("2. Move Right")
-# 				print("3. Move Up")
-# 				print("4. Move Down")
-# 				instruction = int(input(""))
-# 				if(instruction == 1):
-# 					if(0 <= x-1 < (size)):
-# 						x = x-1
-# 						#current_point = [x-1, y]
-# 						move_flag = True
-# 					else:
-# 						print("Cannot move in this direction. Out of Area")
-# 				elif(instruction == 2):
-# 					if(0 <= x+1 < (size)):
-# 						x = x +1
-# 						#current_point = [x+1, y]
-# 						move_flag = True
-# 					else:
-# 						print("Cannot move in this direction. Out of Area")
-# 				elif(instruction == 3):
-# 					if(0 <= y-1 < (size)):
-# 						y = y-1
-# 						#current_point = [x, y-1]
-# 						move_flag = True
-# 					else:
-# 						print("Cannot move in this direction. Out of Area")
-# 				elif(instruction == 2):
-# 					if(0 <= y+1 < (size)):
-# 						y = y + 1
-# 						#current_point = [x, y+1]
-# 						move_flag = True
-# 					else:
-# 						print("Cannot move in this direction. Out of Area")
-
-
-
-				
-		
-		
-
-# 	if(game_result_flag == True):
-# 		print("You Won the Game")
-# 	else:
-# 		print("You Lost the Game")
 
 def printmatrix(matrix, size): 
 	for i in range(size):
@@ -140,10 +26,10 @@ def initialPosition(size):
 	return x, y
 def game(matrix, size):
 	quest_matrix = matrixtostring(initializematrix(size, -1), size)
-	#x, y = initialPosition(size)
+	
 	x = 0
 	y = 0
-	history = []
+	history = [[0,0]]
 	game_over_flag = False
 	game_result_flag = False
 	
@@ -179,7 +65,7 @@ def game(matrix, size):
 				
 			if(0 <= y+1 < (size) and "-1" in quest_matrix[x][y+1]):
 				quest_matrix[x][y+1] = "7"
-			#directions = [1,2,3,4]
+			
 
 				
 		elif("2" in quest_matrix[x][y] or "4" in quest_matrix[x][y]):
@@ -211,7 +97,7 @@ def game(matrix, size):
 
 		printmatrix(quest_matrix, size)
 		if(len(directions) > 0):
-			print(directions)
+			
 			move = random.choice(directions)
 			if(move == 1):
 				if(0 <= x-1 < (size)):
@@ -285,7 +171,12 @@ def game(matrix, size):
 		if("5" in matrix[x][y]):
 			game_over_flag = True
 			game_result_flag = True
+			
+			print("Moving Back")
+			for i in history:
+				print(history.pop())
 			print("You Won the game")
+
 		elif("3" in matrix[x][y] or "1" in matrix[x][y]):
 			game_over_flag = True
 			game_result_flag = False
